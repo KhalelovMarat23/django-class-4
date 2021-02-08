@@ -1,0 +1,13 @@
+body {
+    background-color: lightblue;
+}
+
+.post-item {
+    width: 400px;
+    height: 600px;
+    border: 4px solid black;
+}
+
+.post-item img {
+    width: 100%;
+}

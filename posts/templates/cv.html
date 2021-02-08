@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CV</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <h1>{{ name }}</h1>
+
+    <p>{{ skills.0 }}</p>
+    <p>{{ skills.1 }}</p>
+    <p>{{ skills.2 }}</p>
+
+    <ul>
+        {% for item in skills %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3> {{ vehicle.car }} </h3>
+    <h3> {{ vehicle.moto }} </h3>
+
+    <br>
+    <a href="https://decode.kz">Link To Decode</a>
+    <img src="{% static 'myimg.jpg' %}" alt="">
+
+
+    {% for post in posts %}
+
+        <div class="post-item">
+            <img src="/media/{{post.image}}">
+            <div class="post-text">
+                {{post.title}}
+            </div>
+        </div>
+
+    {% endfor %}
+
+
+</body>
+</html>
