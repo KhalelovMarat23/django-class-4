@@ -8,6 +8,13 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
+    filter_horizontal = ('tag', )
+    list_filter = ('category', )
+    search_fields = ('title', 'description')
+
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('name', )
 
 admin.site.register(models.Post, PostAdmin)
 admin.site.register(models.Category, CategoryAdmin)
+admin.site.register(models.Tag, TagAdmin)
