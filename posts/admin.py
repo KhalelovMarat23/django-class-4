@@ -18,3 +18,5 @@ class TagAdmin(admin.ModelAdmin):
 admin.site.register(models.Post, PostAdmin)
 admin.site.register(models.Category, CategoryAdmin)
 admin.site.register(models.Tag, TagAdmin)
+admin.site.register(models.Bookmark)
+admin.site.register(models.Rating)

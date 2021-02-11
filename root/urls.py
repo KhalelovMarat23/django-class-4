@@ -21,11 +21,13 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('jet/', include('jet.urls', 'jet')), 
+    # path('jet/', include('jet.urls', 'jet')), 
     path('admin/', admin.site.urls),
     path('', views.main, name="Main Page"),
     path('second', views.second, name="Second Page"),
     path('third', views.html_file, name="Third Page"),
+    path('posts', views.getposts, name="Posts Page"),
+    path('post/<slug:myslug>/<str:des>', views.getpost, name="Post Detail Page"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
