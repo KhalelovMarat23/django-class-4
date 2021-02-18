@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.http import JsonResponse
 from posts import models
 from django.db.models import F
 
@@ -41,7 +42,9 @@ def html_file(request):
 
 def getposts(request):
     data = {
-        'posts': models.Post.objects.all().order_by('id')
+        'posts': models.Post.objects.all().order_by('-id'),
+        'categories': models.Category.objects.all().order_by('-id'),
+        'tags': models.Tag.objects.all().order_by('id')
     }
     return render(request, 'post.html', data)
 
@@ -53,6 +56,24 @@ def getpost(request, myslug, des='get'):
     if des == 'delete':
         models.Post.objects.filter(slug=myslug).delete()
         return redirect('/posts')
+    if des == 'update':
+        if request.method == 'POST':
+            cat_id = request.POST.get('category')
+            data = {
+                "title": request.POST.get('title'),
+                "description": request.POST.get('description'),
+                "category": models.Category.objects.get(pk=cat_id)
+            }
+
+            # data['image'] = request.FILES.get('image') if request.FILES.get('image') is not None else None 
+            
+            if request.FILES.get('image') is not None:
+                data['image'] = request.FILES.get('image')
+                print('New File')
+            
+            post = models.Post.objects.filter(slug=myslug).update(**data)
+            # post.tag.set(request.POST.getlist('tag'))
+            return redirect('/posts')
     else:
         models.Post.objects.filter(slug=myslug).update(views=F('views') + 1)
 
@@ -60,3 +81,54 @@ def getpost(request, myslug, des='get'):
         'post': post
     }
     return render(request, 'detail.html', data)
+
+
+
+def savepost(request):
+    if request.method == 'POST':
+        
+        cat_id = request.POST.get('category')
+        
+        data = {
+            "title": request.POST.get('title'),
+            "description": request.POST.get('description'),
+            "slug": request.POST.get('slug'),
+            "category": models.Category.objects.get(pk=cat_id),
+            "image": request.FILES.get('image')
+        }
+        
+        post = models.Post.objects.create(**data)
+        # post = models.Post(**data)
+        # post.save()
+        post.tag.set(request.POST.getlist('tag'))
+        
+        return redirect('/posts')
+    return HttpResponse('GET')
+
+
+def get_post_json(request, myslug):
+    post = models.Post.objects.filter(slug=myslug)
+    
+    response = {
+        'title': post[0].title,
+        'description': post[0].description,
+        'slug': post[0].slug,
+        'category': post[0].category.pk,
+        'tag': list(post.values_list('tag', flat=True)),
+        'image': post[0].image.name
+    }
+    
+    return JsonResponse(response)
+
+
+
+
+
+def main_page(request):
+    data = {
+        'posts': models.Post.objects.all().order_by('-id').select_related('category'),
+        'categories': models.Category.objects.all().order_by('id'),
+        'tags': models.Tag.objects.all().order_by('id')
+    }
+    
+    return render(request, 'main.html', data)

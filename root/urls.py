@@ -23,10 +23,12 @@ from django.conf.urls.static import static
 urlpatterns = [
     # path('jet/', include('jet.urls', 'jet')), 
     path('admin/', admin.site.urls),
-    path('', views.main, name="Main Page"),
+    path('', views.main_page, name="Main Page"),
     path('second', views.second, name="Second Page"),
     path('third', views.html_file, name="Third Page"),
     path('posts', views.getposts, name="Posts Page"),
+    path('posts/save', views.savepost, name="Post Save Page"),
+    path('post/<slug:myslug>/json', views.get_post_json, name="Post Get Json"),
     path('post/<slug:myslug>/<str:des>', views.getpost, name="Post Detail Page"),
 ]
 
