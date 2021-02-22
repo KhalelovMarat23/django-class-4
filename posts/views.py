@@ -4,6 +4,8 @@ from django.http import JsonResponse
 from posts import models
 from django.db.models import F
 
+import posts
+
 
 def main(request):
     return HttpResponse('<h1>Hello This is my first Django page</h1>')
@@ -125,8 +127,19 @@ def get_post_json(request, myslug):
 
 
 def main_page(request):
+    
+    catid = 0
+    
+    q = request.GET.get('q') if request.GET.get('q') is not None else ''
+    
+    posts = models.Post.objects.filter(title__contains=q).order_by('-id').select_related('category')
+    
+    if 'catid' in request.GET and request.GET.get('catid') != '0':
+        catid = request.GET.get('catid')
+        posts = models.Post.objects.filter(category=catid).order_by('-id').select_related('category')
+    
     data = {
-        'posts': models.Post.objects.all().order_by('-id').select_related('category'),
+        'posts': posts,
         'categories': models.Category.objects.all().order_by('id'),
         'tags': models.Tag.objects.all().order_by('id')
     }

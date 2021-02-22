@@ -39,7 +39,7 @@
                     <a class="blog-header-logo text-dark" href="#">Decode News</a>
                 </div>
                 <div class="col-4 d-flex justify-content-end align-items-center">
-                    <a class="text-muted" href="#">
+                    <a class="text-muted" href="#"  data-toggle="modal" data-target="#exampleModal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                             class="mx-3">
@@ -54,10 +54,11 @@
 
         <div class="nav-scroller py-1 mb-2">
             <nav class="nav d-flex justify-content-between">
+
+                <a class="p-2 text-muted" href="?catid=0">All</a>
+
                 {% for category in categories %}
-
-                <a class="p-2 text-muted" href="#">{{category.title}}</a>
-
+                <a class="p-2 text-muted" href="?catid={{category.id}}">{{category.title}}</a>
                 {% endfor %}
 
             </nav>
@@ -81,7 +82,7 @@
             <div class="col-md-6">
                 <div class="card flex-md-row mb-4 box-shadow h-md-250">
                     <div class="card-body d-flex flex-column align-items-start">
-                        <strong class="d-inline-block mb-2 text-primary">{{post.category.title}}</strong>
+                        <a href="?catid={{post.category.id}}" class="d-inline-block mb-2 text-primary">{{post.category.title}}</a>
                         <h3 class="mb-0">
                             <a class="text-dark" href="/post/{{post.slug}}/get">{{post.title}}</a>
                         </h3>
@@ -115,7 +116,7 @@
 
             </div><!-- /.blog-main -->
 
-    
+
 
         </div><!-- /.row -->
 
@@ -129,13 +130,33 @@
         </p>
     </footer>
 
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal" >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="" class="form-inline">
+                  <input type="search" class="form-control" name="q" placeholder="Enter text">
+                  <button class="btn btn-primary">search</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-        
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
