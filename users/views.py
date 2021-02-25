@@ -24,10 +24,6 @@ def sign_up(request):
             return redirect('/signup?error=not_match')
         
         new_user = User(first_name=first_name, last_name=last_name, email=email, username=username)
-        # new_user.first_name = first_name
-        # new_user.last_name = last_name
-        # new_user.email = email
-        # new_user.username = username
         new_user.set_password(password)
         new_user.save()
         

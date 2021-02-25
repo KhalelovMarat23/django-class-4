@@ -143,5 +143,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # APPEND_SLASH = True
 
-
 LOGIN_REDIRECT_URL = '/'
