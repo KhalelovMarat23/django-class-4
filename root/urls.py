@@ -15,23 +15,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from posts import views
-from django.conf import settings
 from django.conf.urls.static import static
+from django.conf import settings
+from posts import views
 
 
 urlpatterns = [
     # path('jet/', include('jet.urls', 'jet')), 
-    
+    path('admin/', admin.site.urls),
+
     re_path(r'^(?:(?P<catid>\d+)/)?(?:(?P<q>\w+)/)?$', views.main_page, name="Main Page"),
 
-    path('admin/', admin.site.urls),
     path('second', views.second, name="Second Page"),
     path('third', views.html_file, name="Third Page"),
     path('posts', views.getposts, name="Posts Page"),
     path('posts/save', views.savepost, name="Post Save Page"),
     path('post/<slug:myslug>/json', views.get_post_json, name="Post Get Json"),
     path('post/<slug:myslug>/<str:des>', views.getpost, name="Post Detail Page"),
+    
+    path('', include('users.urls')),
+    path('', include('django.contrib.auth.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

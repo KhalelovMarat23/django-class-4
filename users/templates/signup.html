@@ -1,0 +1,75 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sign Up</title>
+
+    {% include 'components/head-libs.html' %}
+</head>
+
+<body>
+
+    <div class="container">
+        {% include 'components/navigation.html' %}
+    </div>
+
+    <main role="main" class="container">
+        <h3 class="mb-4 text-center">Registration</h3>
+        <form method="POST" action="/register">
+
+            {% csrf_token %}
+
+            <div class="row">
+
+                <div class="col-6 mb-4">
+                    <label for="first-name">First Name</label>
+                    <input type="text" class="form-control" placeholder="Enter First name" id="first-name"
+                        name="first-name">
+                </div>
+                <div class="col-6 mb-4">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Last name" id="last-name"
+                        name="last-name">
+                </div>
+                <div class="col-6 mb-4">
+                    <label for="user-name">User Name</label>
+                    <input type="text" class="form-control" placeholder="Enter User Name" id="user-name"
+                        name="user-name">
+                </div>
+                <div class="col-6 mb-4">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" placeholder="Enter Email" id="email" name="email">
+                </div>
+                <div class="col-6 mb-4">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" placeholder="Enter Password" id="password"
+                        name="password">
+                </div>
+                <div class="col-6 mb-4">
+                    <label for="re-password">Repeat Password</label>
+                    <input type="password" class="form-control" placeholder="Repeat Password" id="re-password"
+                        name="re-password">
+                </div>
+
+                <div class="col-3 m-auto">
+                    <button class="form-control btn btn-primary">
+                        Sign Up
+                    </button>
+                </div>
+
+            </div>
+        </form>
+    </main>
+
+    {% include "components/footer.html" %}
+
+</body>
+
+</html>

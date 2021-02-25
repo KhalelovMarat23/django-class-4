@@ -80,7 +80,8 @@ def getpost(request, myslug, des='get'):
         models.Post.objects.filter(slug=myslug).update(views=F('views') + 1)
 
     data = {
-        'post': post
+        'post': post,
+        'categories': models.Category.objects.all()
     }
     return render(request, 'detail.html', data)
 
